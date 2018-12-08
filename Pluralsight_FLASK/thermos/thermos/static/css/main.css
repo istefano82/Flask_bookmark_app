@@ -1,7 +1,16 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+/* Note: using color palette: http://paletton.com/#uid=23u0u0kleqtbzEKgVuIpcmGtdhZ */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
 
 html {
-    color: #222;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -21,16 +30,13 @@ hr {
     height: 1px;
     border: 0;
     border-top: 1px solid #ccc;
-    border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
 }
 
 audio,
 canvas,
-iframe,
 img,
-svg,
 video {
     vertical-align: middle;
 }
@@ -45,7 +51,7 @@ textarea {
     resize: vertical;
 }
 
-.browserupgrade {
+.browsehappy {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
@@ -96,7 +102,6 @@ body {
 nav ul {
     margin: 0;
     padding: 0;
-    list-style-type: none;
 }
 
 nav a {
@@ -154,6 +159,7 @@ nav a:hover {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+
 /* link styling */
 a {
     color: #8F540D;
@@ -176,6 +182,52 @@ footer a,
 footer a:visited {
     color: white;
 
+}
+
+.flashes ul {
+    margin: 0 0;
+    background: #FFD6A3;
+    color: #000;
+
+    list-style-type: none;
+    list-style: none;
+}
+
+/* flashes styling */
+
+.flashes ul{
+    margin: 0 0;
+    background: #FFD6A3;
+    color: #000;
+
+    list-style-type: none;
+    list-style: none;
+}
+
+.flashes ul{
+    background: #FFD6A3;
+    color: #000;
+}
+
+
+article.flashes {
+    margin-bottom: 1em;
+}
+
+.error, .error input {
+    color: red;
+}
+
+tr.error td ul {
+    margin-top: 0;
+}
+
+tr.submit button {
+    margin-top: 20px;
+}
+
+input, button {
+    margin-left: 10px;
 }
 
 /* ==========================================================================
@@ -274,6 +326,20 @@ footer a:visited {
    Helper classes
    ========================================================================== */
 
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
 .hidden {
     display: none !important;
     visibility: hidden;
@@ -323,9 +389,7 @@ footer a:visited {
    ========================================================================== */
 
 @media print {
-    *,
-    *:before,
-    *:after {
+    * {
         background: transparent !important;
         color: #000 !important;
         box-shadow: none !important;
@@ -345,8 +409,9 @@ footer a:visited {
         content: " (" attr(title) ")";
     }
 
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
         content: "";
     }
 
@@ -367,6 +432,10 @@ footer a:visited {
 
     img {
         max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
     }
 
     p,
