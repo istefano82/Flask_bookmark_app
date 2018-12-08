@@ -2,8 +2,8 @@
 from flask import  render_template, redirect, url_for, flash
 
 from thermos import app, db
-from forms import BookmarkForm
-from models import User, Bookmark
+from thermos.forms import BookmarkForm
+from thermos.models import User, Bookmark
 
 
 def logged_in_user():
@@ -12,7 +12,7 @@ def logged_in_user():
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', new_bookmarks=models.Bookmark.newest(5), reverse=True)
+    return render_template('index.html', new_bookmarks=Bookmark.newest(5), reverse=True)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -28,6 +28,11 @@ def add():
         return redirect(url_for('index'))
     return render_template('add.html', form=form)
 
+
+@app.route('/user/<username>')
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('user.html', user=user)
 
 @app.errorhandler(404)
 def page_not_found(e):
