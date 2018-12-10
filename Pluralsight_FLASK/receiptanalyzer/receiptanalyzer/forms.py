@@ -3,7 +3,7 @@ from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired, url, Length, Regexp, EqualTo, Email, ValidationError
 
-from crm.models import User
+from receiptanalyzer.models import User
 
 
 class BookmarkForm(Form):

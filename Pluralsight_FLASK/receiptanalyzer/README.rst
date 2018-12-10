@@ -1,4 +1,4 @@
-Cash Receipt Manager is an OCR (optical character recognition) application for storing and managing cash receipt documents
+Cash Receipt Manager is an OCR (optical character recognition) application for storing and analyzing cash receipt documents
 
 Setup project:
 1. Clone the project and setup virtualenv

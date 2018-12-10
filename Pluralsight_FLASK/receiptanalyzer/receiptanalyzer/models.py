@@ -4,7 +4,7 @@ from sqlalchemy import desc
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from crm import db
+from receiptanalyzer import db
 
 
 class Bookmark(db.Model):
