@@ -2,9 +2,9 @@
 from flask import  render_template, redirect, url_for, flash, request
 from flask_login import login_required, login_user, logout_user, current_user
 
-from thermos import app, db, login_manager
-from thermos.forms import BookmarkForm, LoginForm, SignupForm
-from thermos.models import User, Bookmark
+from crm import app, db, login_manager
+from crm.forms import BookmarkForm, LoginForm, SignupForm
+from crm.models import User, Bookmark
 
 
 @login_manager.user_loader
