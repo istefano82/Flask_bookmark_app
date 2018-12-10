@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-Thermos -- Welcome
+Receipt Analyzer -- Welcome
 {%  endblock %}
 
 {% block content %}
     <article>
         <header>
             <h1>Welcome</h1>
-            <p>Thermos is a simple social bookmarking site. Or actually, it is a demo for the <a href="http://www.pluralsight.com">Pluralsight</a> course titled <em>Flask Fundamentals</em>.</p>
+            <p>Receipt Analyzer is an OCR (optical character recognition) application for storing and managing cash receipt documents</p>
         </header>
 
         <section>
-            <h2>Recently Added</h2>
+            <h2>Recently Added Receipts</h2>
                 {% if new_bookmarks %}
                     <ul>
                         {% for bm in new_bookmarks %}
