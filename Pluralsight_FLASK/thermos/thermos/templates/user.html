@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% import "paginate_macros.html" as paginate %}
+
 
 {% block title %}
 Thermos -- Bookmarks for user {{ user.username }}
@@ -9,13 +11,11 @@ Thermos -- Bookmarks for user {{ user.username }}
         <header>
              <h1>Bookmarks for {{ user.username }}</h1>
 
-                {% if user.bookmarks.count() > 0 %}
-                    {% with bookmarks=user.bookmarks %}
-                        {% include "bookmark_list.html" %}
-                    {% endwith %}
-                {% else %}
-                    This user has not added any bookmarks yet.
-                {% endif %}
+            {% if bookmarks|length > 0 %}
+                {% include "bookmark_list.html" %}
+            {% else %}
+                This user has not added any bookmarks yet.
+            {% endif %}
 
         </header>
 
