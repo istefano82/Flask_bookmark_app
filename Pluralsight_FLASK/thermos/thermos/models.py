@@ -8,9 +8,11 @@ from thermos import db
 
 
 tags = db.Table('bookmark_tag',
-                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-                db.Column('bookmark_id', db.Integer, db.ForeignKey('bookmark.id'))
-                )
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('bookmark_id', db.Integer, db.ForeignKey('bookmark.id'))
+)
+
+
 
 class Bookmark(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,6 +22,15 @@ class Bookmark(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     _tags = db.relationship('Tag', secondary=tags,
                             backref=db.backref('bookmarks', lazy='dynamic'))
+
+    @property
+    def tags(self):
+        return ",".join([t.name for t in self._tags])
+
+    @tags.setter
+    def tags(self, string):
+        if string:
+            self._tags = [Tag.get_or_create(name) for name in string.split(',')]
 
     @staticmethod
     def newest(num):
@@ -58,6 +69,17 @@ class User(db.Model, UserMixin):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False, unique=True, index=True)
+
+    @staticmethod
+    def get_or_create(name):
+        try:
+            return Tag.query.filter_by(name=name).one()
+        except:
+            return Tag(name=name)
+
+    @staticmethod
+    def all():
+        return Tag.query.all()
 
     def __repr__(self):
         return self.name
