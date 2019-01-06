@@ -83,3 +83,15 @@ class Tag(db.Model):
 
     def __repr__(self):
         return self.name
+
+
+class Receipt(db.Model):
+    # attribute defining the model fields that need to be indexed by ES
+    __searchable__ = ['body']
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(300))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '< Receipt {}>'.format(self.body)
