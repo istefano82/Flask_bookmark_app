@@ -1,3 +1,5 @@
+from elasticsearch import Elasticsearch
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -5,6 +7,7 @@ from flask_moment import Moment
 from flask_debugtoolbar import DebugToolbarExtension
 
 from .config import config_by_name
+
 
 db = SQLAlchemy()
 
@@ -26,6 +29,8 @@ def create_app(config_name):
     login_manager.init_app(app)
     moment.init_app(app)
     toolbar.init_app(app)
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL'] if app.config['ELASTICSEARCH_URL'] else
+                                       'http://localhost:9200'])
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint, url_prefix='/')
