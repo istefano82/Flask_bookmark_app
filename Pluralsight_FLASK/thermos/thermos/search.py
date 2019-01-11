@@ -15,6 +15,7 @@ def remove_from_index(index, model):
     if not current_app.elasticsearch:
         return
     current_app.elasticsearch.delete(index=index, doc_type=index, id=model.id)
+    current_app.elasticsearch.delete(index=index, doc_type=index, id=model.id)
 
 
 def query_index(index, query, page, per_page):
