@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from . import receipts
 from .. import db
 from ..models import User, Receipt
+from ..ocr import process_image
 
 
 @receipts.route('/add', methods=['GET', 'POST'])
@@ -20,19 +21,30 @@ def add():
         return render_template('upload.html')
 
 
+def _store_receit_text(text):
+        body = text
+        receipt = Receipt(user=current_user, body=body)
+        db.session.add(receipt)
+        db.session.commit()
+
+
 @receipts.route('/upload', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        f = request.files['file']
+        try:
+            f = request.files['file']
+        except KeyError:
+            return redirect(url_for('.add'))
         filename = secure_filename(f.filename)
         try:
             os.makedirs('uploads')
-        except OSError as e:
-            if e != errno.EEXIST:
-                raise e
-
-        f.save(os.path.join('uploads', filename))
+        except FileExistsError as e:
+            pass
+        save_location = os.path.join('uploads', filename)
+        f.save(save_location)
         flash('file "{}" uploaded successfully'.format(f.filename))
+        image_text = process_image(save_location)
+        _store_receit_text(image_text)
         return redirect(url_for('main.index'))
 
 
