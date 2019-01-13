@@ -1,0 +1,16 @@
+<div class="receipt">
+        <h3 class="id">
+            {{ receipt.body }}
+        </h3>
+
+    <div class="info">
+
+        <br>
+            Added by {{ receipt.user.username }}
+
+        {{ moment(receipt.timestamp).fromNow() }}.
+    </div>
+</div>
+
+
+

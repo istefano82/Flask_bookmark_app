@@ -36,7 +36,7 @@ class SearchableMixin(object):
     @classmethod
     def after_commit(cls, session):
         for obj in session._changes['add']:
-            if isinstance(obj, SearchableMixin)
+            if isinstance(obj, SearchableMixin):
                 add_to_index(obj.__tablename__, obj)
         for obj in session._changes['update']:
             if isinstance(obj, SearchableMixin):
@@ -56,7 +56,8 @@ db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
 db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
 
 
-class Bookmark(db.Model):
+class Bookmark(db.Model, SearchableMixin):
+    __searchable__ = ['description']
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
@@ -89,6 +90,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
     bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
+    receipts = db.relationship('Receipt', backref='user', lazy='dynamic')
     password_hash = db.Column(db.String)
 
     @property
@@ -135,7 +137,7 @@ class Receipt(db.Model, SearchableMixin):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(300))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return '< Receipt {}>'.format(self.body)
