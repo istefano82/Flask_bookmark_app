@@ -38,7 +38,7 @@ def create_app(config_name):
     from .bookmarks import bookmarks as bkm_blueprint
     app.register_blueprint(bkm_blueprint, url_prefix='/bookmarks')
 
-    from .receits import receipts as rcpt_blueprint
+    from .receipts import receipts as rcpt_blueprint
     app.register_blueprint(rcpt_blueprint, url_prefix='/receipts')
 
     from .auth import auth as auth_blueprint
