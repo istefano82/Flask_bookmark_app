@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "paginate_macros.html" as paginate %}
+
+{% block title %}
+Thermos -- Bookmarks tagged {{ tag }}
+{%  endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Upload a receipt</h1>
+              <form action = "http://localhost:5000/receipts/upload" method = "POST"
+                 enctype = "multipart/form-data">
+                 <input type = "file" name = "file" />
+                 <input type = "submit"/>
+                </form>
+        </header>
+
+    </article>
+{% endblock %}
